@@ -31,8 +31,7 @@ export default createGlobalStyle`
     }
   }
   body{
-    background: var(--white);
-    color: var(--text);
+    background: var(--black);
   }
   button {
     cursor: pointer;
