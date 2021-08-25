@@ -18,7 +18,7 @@ export default createGlobalStyle`
     --gray-dark: #5E5E5E;
   }
   body, input, textarea, button {
-    font: 400 14px "Roboto", sans-serif;
+    font: 400 15px "Roboto", sans-serif;
   }
   @media (max-width: 1080px) {
     html {

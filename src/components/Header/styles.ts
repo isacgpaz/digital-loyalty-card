@@ -5,7 +5,7 @@ export const Container = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: .75rem 0;
+  margin: .75rem 0;
 
   button{
     display: flex;
