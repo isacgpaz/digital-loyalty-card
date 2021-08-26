@@ -2,15 +2,16 @@ import Image from 'next/image';
 import { Container, Logo } from "./styles";
 import { Header } from "../Header";
 import { Profile } from "../Profile";
+import { useAuth } from '../../hooks/useAuth';
 
 export function Layout({ children }){
-  const isLogged = true;
+  const { user } = useAuth();
   
   return (
     <Container>
       <Header />
       
-      { isLogged ? <Profile /> : (
+      { user ? <Profile /> : (
         <Logo>
           <Image
             src="/logo.png"

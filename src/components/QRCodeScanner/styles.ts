@@ -7,7 +7,17 @@ export const Container = styled.div`
   align-items: center;
   gap: 1rem;
 
-  font-size: 1.275rem;
+  div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    span{
+      font-size: .9rem;
+    }
+  }
 `
 
 export const Code = styled.div`

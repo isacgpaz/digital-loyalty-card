@@ -4,9 +4,11 @@ import * as MdIcons from 'react-icons/md';
 import * as IoIcons from 'react-icons/io';
 import { useScanner } from '../../hooks/useScanner';
 import { Container } from "./styles";
+import { useAuth } from '../../hooks/useAuth';
 
 export function Header(){
   const { toggleScanner, isScannerOpen } = useScanner();
+  const { user } = useAuth();
 
   return (
     <Container>
@@ -14,20 +16,24 @@ export function Header(){
         <BiIcons.BiMenuAltLeft /> 
       </button>
       
-      { /* TODO: Toggle image if user exists */ }
+      { user && 
+        <Image
+          src="/logo.png"
+          alt="Logo do Cacktus"
+          width={100}
+          height={40}
+        />
+      }
 
-      <Image
-        src="/logo.png"
-        alt="Logo do Cacktus"
-        width={100}
-        height={40}
-      />
-
-      { /* TODO: Change button if user exists */ }
-
-      <button type="button" onClick={ toggleScanner }>
-        { isScannerOpen ? <IoIcons.IoIosClose /> : <MdIcons.MdFullscreen /> }
-      </button>
+      { user ? (
+        <button type="button" onClick={ toggleScanner }>
+          { isScannerOpen ? <IoIcons.IoIosClose /> : <MdIcons.MdFullscreen /> }
+        </button>
+      ) : (
+        <button type="button">
+          <IoIcons.IoMdHelpCircle /> 
+        </button>
+      )}
     </Container>
   )
 }

@@ -13,6 +13,7 @@ interface ProfileData{
   email: string;
   name: string;
   imageUrl: string;
+  googleId: string;
 }
 
 interface ResponseData{

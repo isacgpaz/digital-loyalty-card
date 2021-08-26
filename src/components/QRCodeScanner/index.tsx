@@ -1,7 +1,10 @@
 import Image from 'next/image';
+import { useAuth } from '../../hooks/useAuth';
 import { Code, Container } from "./styles";
 
 export function QRCodeScanner(){
+  const { user } = useAuth();
+
   return (
     <Container>
       <Code>
@@ -13,7 +16,10 @@ export function QRCodeScanner(){
         />
       </Code>
 
-      <h2>Cliente ID: 000 000 000</h2>
+      <div>
+        <span>Client ID</span>
+        <h2>{user.googleId}</h2>
+      </div>
     </Container>
   )
 }
