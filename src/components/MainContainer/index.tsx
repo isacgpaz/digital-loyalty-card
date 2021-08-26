@@ -19,6 +19,9 @@ export function MainContainer({ children }){
 
       { children }
 
+
+      { /* TODO: Render if user exists */ }
+
       <UpdatedAt>
         <span>Última Atualização:</span>
         Segunda-feira, 24/08/2021 às 21:16:13

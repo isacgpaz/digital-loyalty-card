@@ -14,6 +14,8 @@ export function Header(){
       <button type="button">
         <BiIcons.BiMenuAltLeft /> 
       </button>
+      
+      { /* TODO: Toggle image if user exists */ }
 
       <Image
         src="/logo.png"
@@ -21,7 +23,9 @@ export function Header(){
         width={100}
         height={40}
       />
-    
+
+      { /* TODO: Change button if user exists */ }
+
       <button type="button" onClick={ toggleScanner }>
         { isScannerOpen ? <IoIcons.IoIosClose /> : <MdIcons.MdFullscreen /> }
       </button>
