@@ -7,7 +7,6 @@ import { Container } from "./styles";
 
 export function Header(){
   const { toggleScanner, isScannerOpen } = useScanner();
-  console.log(isScannerOpen)
 
   return (
     <Container>
