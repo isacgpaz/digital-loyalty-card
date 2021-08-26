@@ -1,11 +1,20 @@
+import { useScanner } from "../../hooks/useScanner";
 import { Container, Header, UpdatedAt } from "./styles";
 
 export function MainContainer({ children }){
+  const { isScannerOpen } = useScanner();
+
   return (
     <Container>
       <Header>
-        <h2>Cartão <br /> Fidelidade</h2>
-        <small>DIGITAL</small>
+        { isScannerOpen ? (
+          <h2>Registrar <br /> Carimbo</h2>
+        ) : (
+          <>
+            <h2>Cartão <br /> Fidelidade</h2>
+            <small>DIGITAL</small>
+          </>
+        )}
       </Header>
 
       { children }
