@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import QRCode from 'react-qr-code';
 import { useAuth } from '../../hooks/useAuth';
 import { Code, Container } from "./styles";
 
@@ -8,12 +9,7 @@ export function QRCodeScanner(){
   return (
     <Container>
       <Code>
-        <Image 
-          src="/code.png"
-          alt=""
-          width={260}
-          height={260}
-        />
+        <QRCode value={user.googleId} />
       </Code>
 
       <div>

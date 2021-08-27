@@ -25,10 +25,13 @@ export const Code = styled.div`
   justify-content: center;
   align-items: center;
 
+  background: var(--white);
   border: 5px solid #00000012;
   border-radius: 10px;
 
-  img{
+  padding: .75rem;
+
+  svg{
     border-radius: 10px;
   }
 `
