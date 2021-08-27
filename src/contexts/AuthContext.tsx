@@ -7,12 +7,6 @@ interface AuthProviderProps{
   children: ReactNode
 }
 
-interface AuthContextData{
-  user: ProfileData;
-  responseGoogle: (response: object) => void;
-  verifyUser: (profileObj: IUser) => void;
-}
-
 interface ProfileData{
   email: string;
   name: string;
@@ -25,6 +19,12 @@ interface ResponseData{
   profileObj: ProfileData;  
   tokenId: string;
 }
+interface AuthContextData{
+  user: ProfileData;
+  responseGoogle: (response: object) => void;
+  verifyUser: (profileObj: IUser) => void;
+}
+
 
 export const AuthContext = createContext({} as AuthContextData);
 
