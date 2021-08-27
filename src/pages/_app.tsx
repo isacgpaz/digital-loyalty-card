@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
         </Layout>
         </ScannerProvider>
       </AuthProvider>
-
+      
       <GlobalStyles />
     </>
   )

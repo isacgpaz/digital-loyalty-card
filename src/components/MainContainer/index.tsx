@@ -1,8 +1,10 @@
+import { useAuth } from "../../hooks/useAuth";
 import { useScanner } from "../../hooks/useScanner";
 import { Container, Header, UpdatedAt } from "./styles";
 
 export function MainContainer({ children }){
   const { isScannerOpen } = useScanner();
+  const { user } = useAuth();
 
   return (
     <Container>
@@ -18,14 +20,13 @@ export function MainContainer({ children }){
       </Header>
 
       { children }
-
-
-      { /* TODO: Render if user exists */ }
-
-      <UpdatedAt>
-        <span>Última Atualização:</span>
-        Segunda-feira, 24/08/2021 às 21:16:13
-      </UpdatedAt>
+     
+      { user && 
+        <UpdatedAt>
+          <span>Última Atualização:</span>
+          Segunda-feira, 24/08/2021 às 21:16:13
+        </UpdatedAt>
+      }
     </Container>
   )
 }

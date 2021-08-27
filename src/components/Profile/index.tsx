@@ -10,8 +10,8 @@ export function Profile(){
       { user && <>
         <Avatar>
           <Image
-            src={user.imageUrl}
-            alt={`Foto de ${user.name}`}
+            src={user?.imageUrl}
+            alt={`Foto de ${user?.name}`}
             width={85}
             height={85}
           />
@@ -19,8 +19,8 @@ export function Profile(){
 
         <UserInfo>
           <h2>Caktus Restaurante</h2>
-          <p>{user.name}</p>
-          <span>CLIENT ID: {user.googleId}</span>
+          <p>{user?.name}</p>
+          <span>CLIENT ID: {user?.googleId}</span>
         </UserInfo>
       </>
       }
