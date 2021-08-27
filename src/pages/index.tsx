@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Card } from "../components/Card";
 import { Login } from "../components/Login";
 import { MainContainer } from "../components/MainContainer";
@@ -15,6 +16,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Cartão Fidelidade | Caktus Restaurante</title>
+      </Head>
+
       <MainContainer>
         { user ? (isScannerOpen ? 
           <QRCodeScanner /> : flagsChecked.length == 13 ? <Success /> : <Card />

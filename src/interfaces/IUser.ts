@@ -6,5 +6,6 @@ export interface IUser{
   email: string;
   imageUrl: string;
   googleId: string;
-  flags: Array<IFlag>
+  flags: Array<IFlag>;
+  updatedAt?: string;
 }
