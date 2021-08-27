@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import { Container, InfoScreenDevice, Logo, Social } from "./styles";
+import { Container, Logo, Social } from "./styles";
 import { Header } from "../Header";
 import { Profile } from "../Profile";
 import { useAuth } from '../../hooks/useAuth';

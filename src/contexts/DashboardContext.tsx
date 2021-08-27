@@ -9,12 +9,19 @@ interface DashboardProviderProps{
 interface DashboardContextData{
   users: Array<IUser>;
   getAllUsers: () => void;
+  toggleScanner: () => void;
+  isScannerOpen: boolean;
 }
 
 export const DashboardContext = createContext({} as DashboardContextData);
 
 export function DashboardProvider({ children }: DashboardProviderProps){
   const [users, setUsers] = useState<Array<IUser> | null>();
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+
+  function toggleScanner(){
+    setIsScannerOpen(!isScannerOpen);
+  }
 
   async function getAllUsers(){
     try{
@@ -29,7 +36,9 @@ export function DashboardProvider({ children }: DashboardProviderProps){
   return (
     <DashboardContext.Provider value={{
       users,
-      getAllUsers
+      getAllUsers,
+      toggleScanner,
+      isScannerOpen
     }}>
       { children }
     </DashboardContext.Provider>

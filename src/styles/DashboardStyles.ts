@@ -120,5 +120,10 @@ export const Table = styled.table`
         color: var(--gray-dark);
       }
     }
+
+    &:last-child {
+      text-align: center;
+      font-size: 1.25rem;
+    }
   }
 `

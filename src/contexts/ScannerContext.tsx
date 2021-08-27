@@ -5,23 +5,31 @@ interface ScannerProviderProps{
 }
 
 interface ScannerContextData{
-  isScannerOpen: boolean;
-  toggleScanner: () => void;
+  scan: string;
+  handleScan: (data: void) => void;
+  handleError: (error: void) => void;
 }
 
 export const ScannerContext = createContext({} as ScannerContextData);
 
 export function ScannerProvider({ children }: ScannerProviderProps){
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
-
-  function toggleScanner(){
-    setIsScannerOpen(!isScannerOpen);
+  const [scan, setScan] = useState('');
+  
+  const handleScan = data => {
+    if (data) {
+      setScan(data);
+    }
+  }
+  
+  const handleError = error => {
+    console.error(error);
   }
 
   return (
     <ScannerContext.Provider value={{
-      isScannerOpen,
-      toggleScanner
+      scan,
+      handleScan,
+      handleError
     }}>
       { children }
     </ScannerContext.Provider>

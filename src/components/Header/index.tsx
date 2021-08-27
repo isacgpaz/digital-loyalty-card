@@ -2,13 +2,13 @@ import Image from 'next/image';
 import * as BiIcons from 'react-icons/bi';
 import * as MdIcons from 'react-icons/md';
 import * as IoIcons from 'react-icons/io';
-import { useScanner } from '../../hooks/useScanner';
+import { useQRCode } from '../../hooks/useQRCode';
 import { Container } from "./styles";
 import { useAuth } from '../../hooks/useAuth';
 import { IFlag } from '../../interfaces/IFlag';
 
 export function Header(){
-  const { toggleScanner, isScannerOpen } = useScanner();
+  const { toggleQRCode, isQRCodeOpen } = useQRCode();
   const { user } = useAuth();
 
   const flagsChecked = user?.flags.filter((flag: IFlag) => { return flag.isChecked });
@@ -29,8 +29,8 @@ export function Header(){
       }
 
       { user ? (
-        <button type="button" onClick={ toggleScanner }>
-          { isScannerOpen ? <IoIcons.IoIosClose /> : <MdIcons.MdFullscreen /> }
+        <button type="button" onClick={ toggleQRCode }>
+          { isQRCodeOpen ? <IoIcons.IoIosClose /> : <MdIcons.MdFullscreen /> }
         </button>
       ) : (
         <button type="button">
