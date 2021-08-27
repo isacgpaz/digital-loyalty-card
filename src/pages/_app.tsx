@@ -9,8 +9,8 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <ScannerProvider>
           <Layout>
-          <Component {...pageProps} />
-        </Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ScannerProvider>
       </AuthProvider>
       
