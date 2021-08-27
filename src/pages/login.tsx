@@ -1,17 +1,15 @@
 import { useForm } from "react-hook-form";
+import { useAuth } from "../hooks/useAuth";
+import { SignInData } from "../interfaces/SIgnInData";
 import { Button } from "../styles/DashboardStyles";
 import { Container, Form, Header, LoginBox } from "../styles/LoginStyles";
 
-interface SignInData{
-  email: string;
-  password: string;
-}
-
 export default function Login(){
   const { register, handleSubmit } = useForm();
+  const { authAdmin } = useAuth();
 
   async function handleSignIn(data: SignInData){
-    
+    await authAdmin(data);
   }
 
   return (

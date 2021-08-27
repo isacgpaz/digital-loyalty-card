@@ -1,6 +1,10 @@
 import { createContext, ReactNode, useState } from "react";
+import { parseCookies, setCookie } from "nookies";
+import Router from "next/router";
+import { IAdmin } from "../interfaces/IAdmin";
 import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
+import { SignInData } from "../interfaces/SIgnInData";
 import { api } from "../services/api";
 
 interface AuthProviderProps{
@@ -23,13 +27,18 @@ interface AuthContextData{
   user: ProfileData;
   responseGoogle: (response: object) => void;
   verifyUser: (profileObj: IUser) => void;
+
+  admin: IAdmin;
+  authAdmin: ({email, password}: SignInData) => Promise<void>;
 }
 
 
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps){
-  const [user, setUser] = useState<IUser | null>()
+  const [user, setUser] = useState<IUser | null>();
+  const [admin, setAdmin] = useState<IAdmin | null>();
+  
   const [token, setToken] = useState<string>();
 
   async function responseGoogle({ profileObj, tokenId }: ResponseData){
@@ -69,11 +78,34 @@ export function AuthProvider({ children }: AuthProviderProps){
     }
   }
 
+  async function authAdmin({ email, password }: SignInData): Promise<void>{
+    try{
+      await api.post("admins/auth", {
+        email: email,
+        password: password
+      }).then( ({ data })  => {
+        setCookie(undefined, 'edu-token', data.token, {
+          maxAge: 60 * 60 * 24 //24h
+        });
+
+        setAdmin(data.admin);
+
+        api.defaults.headers['Authorization'] = `Bearer ${data.token}`;        
+
+        Router.push('/dashboard');
+      })
+    }catch(error){
+      return error.message;
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
       responseGoogle,
-      verifyUser
+      verifyUser,
+      admin,
+      authAdmin
     }}>
       { children }
     </AuthContext.Provider>
