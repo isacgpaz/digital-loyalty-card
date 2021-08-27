@@ -24,6 +24,11 @@ export const Header = styled.div`
     line-height: 2.5rem
   }
 
+  p{
+    font-size: 1.425rem;
+    font-weight: 700;
+  }
+
   small{
     font-size: .9rem;
     font-weight: 500;

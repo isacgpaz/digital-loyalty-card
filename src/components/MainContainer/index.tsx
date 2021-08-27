@@ -1,10 +1,13 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useScanner } from "../../hooks/useScanner";
+import { IFlag } from "../../interfaces/IFlag";
 import { Container, Header, UpdatedAt } from "./styles";
 
 export function MainContainer({ children }){
   const { isScannerOpen } = useScanner();
   const { user } = useAuth();
+
+  const flagsChecked = user?.flags.filter((flag: IFlag) => { return flag.isChecked });
 
   return (
     <Container>
@@ -12,10 +15,15 @@ export function MainContainer({ children }){
         { isScannerOpen ? (
           <h2>Registrar <br /> Carimbo</h2>
         ) : (
-          <>
-            <h2>Cartão <br /> Fidelidade</h2>
-            <small>DIGITAL</small>
-          </>
+          flagsChecked?.length == 13 ? (<>
+              <h2>Parabéns</h2>
+              <p>Você conseguiu!</p>
+            </>
+          ) : ( <>
+              <h2>Cartão <br /> Fidelidade</h2>
+              <small>DIGITAL</small>
+            </>
+          )
         )}
       </Header>
 

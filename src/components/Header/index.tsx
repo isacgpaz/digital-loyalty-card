@@ -5,10 +5,13 @@ import * as IoIcons from 'react-icons/io';
 import { useScanner } from '../../hooks/useScanner';
 import { Container } from "./styles";
 import { useAuth } from '../../hooks/useAuth';
+import { IFlag } from '../../interfaces/IFlag';
 
 export function Header(){
   const { toggleScanner, isScannerOpen } = useScanner();
   const { user } = useAuth();
+
+  const flagsChecked = user?.flags.filter((flag: IFlag) => { return flag.isChecked });
 
   return (
     <Container>
