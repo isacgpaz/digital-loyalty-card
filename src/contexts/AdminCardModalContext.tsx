@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
+import { IoIosTabletLandscape } from "react-icons/io";
+import { useUser } from "../hooks/useUser";
 
 interface AdminCardModalProviderProps{
   children: ReactNode
@@ -13,9 +15,14 @@ export const AdminCardModalContext = createContext({} as AdminCardModalContextDa
 
 export function AdminCardModalProvider({ children }: AdminCardModalProviderProps){
   const [isAdminCardModalOpen, setIsAdminCardModalOpen] = useState(false);
+  const { setIsSucceededTransation } = useUser();
 
   function toggleAdminCardModal(){
     setIsAdminCardModalOpen(!isAdminCardModalOpen);
+
+    if(isAdminCardModalOpen){
+      setIsSucceededTransation(false);
+    }
   }
 
   return (

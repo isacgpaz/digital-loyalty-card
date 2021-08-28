@@ -5,7 +5,7 @@ import { useAdminCardModal } from '../../hooks/useAdminCardModal';
 import { useUser } from '../../hooks/useUser';
 import { Container } from '../AdminModal/styles';
 import { Header } from '../QRCodeScanner/styles';
-import { Info, UserModal } from './styles';
+import { Info, Status, UserModal } from './styles';
 import { Button } from '../../styles/DashboardStyles';
 import { Loading } from '../Loading';
 import { IFlag } from '../../interfaces/IFlag';
@@ -13,7 +13,7 @@ import { IFlag } from '../../interfaces/IFlag';
 export function UserDetails(){
   const { scan } = useScanner();
   const { toggleAdminCardModal } = useAdminCardModal();
-  const { setUserGoogleId, addFlag, user } = useUser();
+  const { setUserGoogleId, addFlag, user, isSucceededTransation } = useUser();
 
   setUserGoogleId(scan);
 
@@ -32,6 +32,12 @@ export function UserDetails(){
             Confirme os dados do cliente para continuar.
           </p>
         </Header>
+
+        { isSucceededTransation && 
+          <Status>
+            Carimbo efetuado com sucesso!
+          </Status>
+        }
 
         <Info>
           <Image 

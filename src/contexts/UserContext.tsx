@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { IUser } from "../interfaces/IUser";
 import { api } from "../services/api";
 
@@ -11,6 +11,8 @@ interface UserContextData{
   getUser: (googleId: string) => void;
   setUserGoogleId: (googleId: string) => void;
   addFlag: (user: IUser) => void;
+  isSucceededTransation: boolean;
+  setIsSucceededTransation: Dispatch<SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext({} as UserContextData);
@@ -18,6 +20,7 @@ export const UserContext = createContext({} as UserContextData);
 export function UserProvider({ children }: UserProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [googleId, setGoogleId] = useState('');
+  const [isSucceededTransation, setIsSucceededTransation] = useState(false);
 
   useEffect(() => {
     if(googleId){
@@ -66,7 +69,9 @@ export function UserProvider({ children }: UserProviderProps){
         imageUrl: user.imageUrl,
         googleId: user.googleId,
       }).then(()  => { 
-        setUser(null);
+        setUser(user);
+        
+        setIsSucceededTransation(true);
       })
     }catch(error){
       return error.message;
@@ -78,9 +83,11 @@ export function UserProvider({ children }: UserProviderProps){
       user,
       getUser,
       setUserGoogleId,
-      addFlag
+      addFlag,
+      isSucceededTransation,
+      setIsSucceededTransation
     }}>
       { children }
     </UserContext.Provider>
   )
-}
+}//

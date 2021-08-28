@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ScannerModal } from '../QRCodeScanner/styles';
 
 export const UserModal = styled(ScannerModal)`
@@ -53,4 +53,26 @@ export const Info = styled.div`
       }
     }
   }
+`
+
+const fade = keyframes`
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+`
+
+export const Status = styled.div`
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  background: var(--green);
+  color: var(--white);
+
+  padding: .5rem 1rem;
+
+  width: 100%;
+  opacity: 0;
+  animation: ${fade} 5s cubic-bezier(0, 0.04, 0.9, 0.6);
 `
