@@ -17,7 +17,7 @@ export function Layout({ children }){
         <div>
           <Header />
             
-          { user ? <Profile /> : (
+          { user ? <Profile user={user} /> : (
             <Logo>
                 <Image
                 src="/logo.png"

@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import { useAuth } from '../../hooks/useAuth';
+import { IUser } from '../../interfaces/IUser';
 import { Avatar, Container, UserInfo } from "./styles";
 
-export function Profile(){
-  const { user } = useAuth();
-  
+interface ProfileProps{
+  user: IUser;
+}
+
+export function Profile({ user }: ProfileProps){
   return (
     <Container>
       { user && <>

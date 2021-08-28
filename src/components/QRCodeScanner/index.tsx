@@ -1,20 +1,18 @@
 import * as IoIcons from 'react-icons/io';
 import { useDashboard } from '../../hooks/useDashboard';
-import { Container, Header, Scanner, ScannerModal } from './styles';
+import { Header, Scanner, ScannerModal } from './styles';
 import dynamic from 'next/dynamic';
 import { Button } from '../../styles/DashboardStyles';
 import { useScanner } from '../../hooks/useScanner';
-
-interface QrScanData{
-  onScan: () => void;
-  onError: () => void; 
-}
+import { useAdminCardModal } from '../../hooks/useAdminCardModal';
+import { Container } from '../AdminModal/styles';
 
 const QrScan = dynamic(() => import('react-qr-reader'), { ssr: false });
 
 export function QRCodeScanner(){
   const { toggleScanner } = useDashboard();
   const { handleScan, handleError, scan } = useScanner();
+  const { toggleAdminCardModal } = useAdminCardModal();
 
   return (
     <Container>
@@ -25,9 +23,11 @@ export function QRCodeScanner(){
         
         <Header>
           <h2>Registrar <br /> Carimbo</h2>
-          <p>Aponte o celular para o QRCode do cliente.</p>
+          <p>
+            Aponte o celular para o QRCode do cliente.
+          </p>
         </Header>
-
+        
         <Scanner>
           <div>
             <QrScan
@@ -36,11 +36,11 @@ export function QRCodeScanner(){
               style={{ height: 300, width: 300 }}
             />
           </div>
-
-          {scan && 
+  
+          { scan && 
             <>
               <h2>Client ID {scan}</h2>
-              <Button type="button" background="green">
+              <Button type="button" background="green" onClick={toggleAdminCardModal}>
                 Avançar
               </Button>
             </>

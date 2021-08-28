@@ -10,12 +10,16 @@ import { useDashboard } from '../hooks/useDashboard';
 import { QRCodeScanner } from '../components/QRCodeScanner';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
+import { IFlag } from '../interfaces/IFlag';
+import { useAdminCardModal } from '../hooks/useAdminCardModal';
+import { UserDetails } from '../components/UserDetails';
 interface IDashboard{
   users: Array<IUser>;
 }
 
 export default function Dashboard({ users }: IDashboard){
   const { toggleScanner, isScannerOpen } = useDashboard();
+  const { isAdminCardModalOpen } = useAdminCardModal();
 
   return (
     <>
@@ -67,7 +71,7 @@ export default function Dashboard({ users }: IDashboard){
                         {user.updatedAt}
                       </small>
                     </td>    
-                    <td>13</td>
+                    <td>{(user?.flags.filter((flag: IFlag) => { return flag.isChecked })).length}</td>
                   </tr>
                 )
               })
@@ -78,7 +82,8 @@ export default function Dashboard({ users }: IDashboard){
         </Table>
       </Container>
       
-      { isScannerOpen && <QRCodeScanner />}
+      { isScannerOpen && <QRCodeScanner /> }
+      { isAdminCardModalOpen && <UserDetails /> }
     </>
   )
 }

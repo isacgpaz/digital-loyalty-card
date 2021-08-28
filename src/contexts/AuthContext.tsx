@@ -11,22 +11,14 @@ interface AuthProviderProps{
   children: ReactNode
 }
 
-interface ProfileData{
-  email: string;
-  name: string;
-  imageUrl: string;
-  googleId: string;
-  flags: Array<IFlag>;
-}
-
 interface ResponseData{
-  profileObj: ProfileData;  
+  profileObj: IUser;  
 }
 
 interface AuthContextData{
-  user: ProfileData;
+  user: IUser;
   responseGoogle: (response: object) => void;
-  verifyUser: (profileObj: IUser) => void;
+  verifyUser: (googleId: string) => void;
 
   admin: IAdmin;
   authAdmin: ({email, password}: SignInData) => Promise<void>;
@@ -40,14 +32,14 @@ export function AuthProvider({ children }: AuthProviderProps){
   const [admin, setAdmin] = useState<IAdmin | null>();
   
   async function responseGoogle({ profileObj }: ResponseData){
-    await verifyUser(profileObj).then(() => {
+    await verifyUser(profileObj.googleId).then(() => {
       if(!user){
         createUser(profileObj);
       }
     });
   }
 
-  async function createUser(profileObj: ProfileData){
+  async function createUser(profileObj: IUser){
     try{
       await api.post(`users/`, {
         name: profileObj.name,
@@ -62,9 +54,9 @@ export function AuthProvider({ children }: AuthProviderProps){
     }
   }
 
-  async function verifyUser(profileObj: ProfileData){
+  async function verifyUser(googleId: string){
     try{
-      await api.get(`users/${profileObj.googleId}`)
+      await api.get(`users/${googleId}`)
         .then(({ data })  => { 
           setUser(data.user); 
         })
