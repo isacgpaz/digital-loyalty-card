@@ -6,7 +6,7 @@ interface ScannerProviderProps{
 
 interface ScannerContextData{
   scan: string;
-  handleScan: (data: void) => void;
+  handleScan: (data: string) => void;
   handleError: (error: void) => void;
 }
 
@@ -15,7 +15,7 @@ export const ScannerContext = createContext({} as ScannerContextData);
 export function ScannerProvider({ children }: ScannerProviderProps){
   const [scan, setScan] = useState('');
   
-  const handleScan = data => {
+  const handleScan = (data: string) => {
     if (data) {
       setScan(data);
     }

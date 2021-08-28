@@ -2,9 +2,13 @@ import * as IoIcons from 'react-icons/io';
 import { useDashboard } from '../../hooks/useDashboard';
 import { Container, Header, Scanner, ScannerModal } from './styles';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { Button } from '../../styles/DashboardStyles';
 import { useScanner } from '../../hooks/useScanner';
+
+interface QrScanData{
+  onScan: () => void;
+  onError: () => void; 
+}
 
 const QrScan = dynamic(() => import('react-qr-reader'), { ssr: false });
 

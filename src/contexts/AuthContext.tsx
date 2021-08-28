@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { setCookie } from "nookies";
 import Router from "next/router";
 import { IAdmin } from "../interfaces/IAdmin";
 import { IFlag } from "../interfaces/IFlag";
@@ -22,6 +22,12 @@ interface ProfileData{
 interface ResponseData{
   profileObj: ProfileData;  
   tokenId: string;
+}
+
+interface TokenData{
+  id: string,
+  iat: number, 
+  exp: number
 }
 interface AuthContextData{
   user: ProfileData;
