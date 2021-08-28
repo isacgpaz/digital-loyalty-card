@@ -5,7 +5,7 @@ export function getAPIClient(ctx?: any) {
   const { 'admin-token': token } = parseCookies(ctx);
 
   const api = axios.create({
-    baseURL: 'http://192.168.0.101:3333'
+    baseURL: 'https://digital-loyalty-card.herokuapp.com/'
   });
 
   api.interceptors.request.use(config => {

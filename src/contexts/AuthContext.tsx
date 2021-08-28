@@ -21,14 +21,8 @@ interface ProfileData{
 
 interface ResponseData{
   profileObj: ProfileData;  
-  tokenId: string;
 }
 
-interface TokenData{
-  id: string,
-  iat: number, 
-  exp: number
-}
 interface AuthContextData{
   user: ProfileData;
   responseGoogle: (response: object) => void;
@@ -45,17 +39,12 @@ export function AuthProvider({ children }: AuthProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [admin, setAdmin] = useState<IAdmin | null>();
   
-  const [token, setToken] = useState<string>();
-
-  async function responseGoogle({ profileObj, tokenId }: ResponseData){
+  async function responseGoogle({ profileObj }: ResponseData){
     await verifyUser(profileObj).then(() => {
       if(!user){
         createUser(profileObj);
       }
     });
-
-
-    setToken(tokenId);
   }
 
   async function createUser(profileObj: ProfileData){
@@ -77,7 +66,7 @@ export function AuthProvider({ children }: AuthProviderProps){
     try{
       await api.get(`users/${profileObj.googleId}`)
         .then(({ data })  => { 
-          setUser(data.user) 
+          setUser(data.user); 
         })
     }catch(error){
       return error.message;
@@ -90,13 +79,14 @@ export function AuthProvider({ children }: AuthProviderProps){
         email: email,
         password: password
       }).then( ({ data })  => {
-        setCookie(undefined, 'edu-token', data.token, {
+        setCookie(undefined, 'admin-token', data.token, {
           maxAge: 60 * 60 * 24 //24h
         });
 
         setAdmin(data.admin);
 
-        api.defaults.headers['Authorization'] = `Bearer ${data.token}`;        
+        api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
+        console.log(api.defaults.headers['Authorization'])
 
         Router.push('/dashboard');
       })
