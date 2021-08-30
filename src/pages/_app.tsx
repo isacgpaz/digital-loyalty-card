@@ -1,6 +1,5 @@
 import { Layout } from '../components/Layout';
 import { AuthProvider } from '../contexts/AuthContext';
-import { DashboardProvider } from '../contexts/DashboardContext';
 import { QRCodeProvider } from '../contexts/QRCodeContext';
 import { ScannerProvider } from '../contexts/ScannerContext';
 import { UserProvider } from '../contexts/UserContext';
@@ -12,13 +11,11 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <UserProvider>
           <ScannerProvider>
-            <DashboardProvider>
-              <QRCodeProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </QRCodeProvider>
-            </DashboardProvider>
+            <QRCodeProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </QRCodeProvider>
           </ScannerProvider>
         </UserProvider>
       </AuthProvider>

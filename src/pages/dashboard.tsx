@@ -13,14 +13,11 @@ import { IFlag } from '../interfaces/IFlag';
 import { UserDetails } from '../components/UserDetails';
 import { useScanner } from '../hooks/useScanner';
 import { useUser } from '../hooks/useUser';
-interface IDashboard{
-  users: Array<IUser>;
-}
 
-export default function Dashboard({ users }: IDashboard){
+export default function Dashboard(){
   const { toggleScanner, isScannerOpen } = useScanner();
-  const { isUserDetailsOpen } = useUser();
-
+  const { isUserDetailsOpen, users } = useUser();
+  
   return (
     <>
       <Head>
@@ -99,28 +96,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     }
   }
-  
-  const { data } = await api.get('users', {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });  
-
-  const users: Array<IUser> = data.users.map((user: IUser) => {
-    return {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      googleId: user.googleId,
-      imageUrl: user.imageUrl,
-      flags: user.flags,
-      updatedAt: format(parseISO(user.updatedAt), "dd 'de' MMMM 'de' yyyy 'às' H'h'm", { locale: ptBR })
-    }
-  })
 
   return {
     props: {
-      users
     }
   }
 }

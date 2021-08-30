@@ -1,4 +1,7 @@
+import { parseISO, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
 import { api } from "../services/api";
 
@@ -9,6 +12,8 @@ interface UserProviderProps{
 interface UserContextData{
   user: IUser;
   getUser: (googleId: string) => void;
+  users: Array<IUser>;
+  getAllUsers: () => void;
   setUserGoogleId: (googleId: string) => void;
   addFlag: (user: IUser) => void;
   isUserDetailsOpen: boolean;
@@ -19,18 +24,24 @@ export const UserContext = createContext({} as UserContextData);
 
 export function UserProvider({ children }: UserProviderProps){
   const [user, setUser] = useState<IUser | null>();
+  const [users, setUsers] = useState<Array<IUser> | null>();
+  const [flagsChecked, setIsFlagsCheched] = useState(0);
   const [googleId, setGoogleId] = useState('');
   const [isUserDetailsOpen, setIsUserDetailsOpen] = useState(false);
-
-  function toggleUserDetails(){
-    setIsUserDetailsOpen(!isUserDetailsOpen);
-  }
 
   useEffect(() => {
     if(googleId){
       getUser(googleId);
     }
   }, [googleId]);
+  
+  useEffect(() => {
+    getAllUsers();
+  }, [user?.flags, users]);
+
+  function toggleUserDetails(){
+    setIsUserDetailsOpen(!isUserDetailsOpen);
+  }
 
   function setUserGoogleId(googleId: string){
     setGoogleId(googleId);
@@ -40,6 +51,9 @@ export function UserProvider({ children }: UserProviderProps){
     try{
       await api.get(`users/${googleId}`)
         .then(({ data })  => { 
+          data.user.flags = data.user.flags.sort(((a: any, b: any) => {
+            return a.index - b.index;
+          }));
           setUser(data.user); 
         })
     }catch(error){
@@ -47,9 +61,20 @@ export function UserProvider({ children }: UserProviderProps){
     }
   }
 
+  async function getAllUsers(){
+    try{
+      await api.get(`users`).then(({ data }) => {
+        data.users.map(user => { 
+          user.updatedAt = format(parseISO(user.updatedAt), "dd 'de' MMMM 'de' yyyy 'às' H'h'm", { locale: ptBR });
+        })
+        setUsers(data.users);
+      });
+    }catch(error){
+      return error.message;
+    }
+  }
+
   async function addFlag(user: IUser){
-    console.log(user.flags);
-    
     const flag = user.flags.find(flag => !flag.isChecked);
     
     if(flag){
@@ -59,6 +84,8 @@ export function UserProvider({ children }: UserProviderProps){
       user.flags.map(flag => {
         flag.isChecked = false;
       });
+
+      user.flags[0].isChecked = true;
 
       updateUser(user);
     }
@@ -72,8 +99,13 @@ export function UserProvider({ children }: UserProviderProps){
         flags: user.flags,
         imageUrl: user.imageUrl,
         googleId: user.googleId,
-      }).then(()  => { 
-        setUser(user);
+      }).then(({ data })  => { 
+        data.user.flags = data.user.flags.sort(((a: any, b: any) => {
+          return a.index - b.index;
+        }));
+
+        setUser(data.user);
+        getAllUsers();
       })
     }catch(error){
       return error.message;
@@ -84,10 +116,12 @@ export function UserProvider({ children }: UserProviderProps){
     <UserContext.Provider value={{
       user,
       getUser,
+      users,
+      getAllUsers,
       setUserGoogleId,
       addFlag,
       isUserDetailsOpen,
-      toggleUserDetails
+      toggleUserDetails,
     }}>
       { children }
     </UserContext.Provider>
