@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
-import { setCookie } from "nookies";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { parseCookies, setCookie } from "nookies";
 import Router from "next/router";
 import { IAdmin } from "../interfaces/IAdmin";
 import { IFlag } from "../interfaces/IFlag";
@@ -31,6 +31,11 @@ export function AuthProvider({ children }: AuthProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [admin, setAdmin] = useState<IAdmin | null>();
   
+  useEffect(() => {
+    const googleIdStorage = localStorage.getItem('user_id');
+    verifyUser(googleIdStorage);
+  }, [user])
+
   async function responseGoogle({ profileObj }: ResponseData){
     await verifyUser(profileObj.googleId).then(() => {
       if(!user){
@@ -62,6 +67,8 @@ export function AuthProvider({ children }: AuthProviderProps){
             return a.index - b.index;
           }));
           
+          localStorage.setItem('user_id', data.user.googleId);
+
           setUser(data.user); 
         })
     }catch(error){

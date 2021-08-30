@@ -36,7 +36,6 @@ export function Card(){
           flags.map(flag => {
             return (
               <Flag key={flag._id}>
-                {flag.index}
                 { flag.isChecked && 
                   <CheckedFlag>
                     <Image 
