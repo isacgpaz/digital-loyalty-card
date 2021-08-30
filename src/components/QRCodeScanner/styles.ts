@@ -64,23 +64,3 @@ export const Scanner = styled.div`
     word-break: break-word;
   }
 `
-
-export const ClientInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-
-  img{
-    border-radius: 50%;
-  }
-
-  div{
-    text-transform: uppercase;
-    font-weight: 700;
-
-    p{
-      font-size: 1.5rem;
-    }
-  }
-`

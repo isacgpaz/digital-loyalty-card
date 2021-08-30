@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import * as IoIcons from 'react-icons/io';
 import { useScanner } from '../../hooks/useScanner';
-import { useAdminCardModal } from '../../hooks/useAdminCardModal';
 import { useUser } from '../../hooks/useUser';
 import { Container } from '../AdminModal/styles';
 import { Header } from '../QRCodeScanner/styles';
@@ -12,8 +11,7 @@ import { IFlag } from '../../interfaces/IFlag';
 
 export function UserDetails(){
   const { scan } = useScanner();
-  const { toggleAdminCardModal } = useAdminCardModal();
-  const { setUserGoogleId, addFlag, user, isSucceededTransation } = useUser();
+  const { setUserGoogleId, addFlag, user, toggleUserDetails } = useUser();
 
   setUserGoogleId(scan);
 
@@ -22,7 +20,7 @@ export function UserDetails(){
   return (
     <Container>
       <UserModal>
-        <button type="button" onClick={ toggleAdminCardModal } style={{fontSize: '1.5rem'}}>
+        <button type="button" onClick={ toggleUserDetails } style={{fontSize: '1.5rem'}}>
           <IoIcons.IoIosArrowBack /> 
         </button>
         
@@ -31,13 +29,7 @@ export function UserDetails(){
           <p>
             Confirme os dados do cliente para continuar.
           </p>
-        </Header>
-
-        { isSucceededTransation && 
-          <Status>
-            Carimbo efetuado com sucesso!
-          </Status>
-        }
+        </Header>        
 
         <Info>
           <Image 

@@ -58,6 +58,10 @@ export function AuthProvider({ children }: AuthProviderProps){
     try{
       await api.get(`users/${googleId}`)
         .then(({ data })  => { 
+          data.user.flags = data.user.flags.sort(((a: any, b: any) => {
+            return a.index - b.index;
+          }));
+          
           setUser(data.user); 
         })
     }catch(error){

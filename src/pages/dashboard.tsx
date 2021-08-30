@@ -6,20 +6,20 @@ import { api } from '../services/api';
 import { IUser } from '../interfaces/IUser';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { useDashboard } from '../hooks/useDashboard';
 import { QRCodeScanner } from '../components/QRCodeScanner';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import { IFlag } from '../interfaces/IFlag';
-import { useAdminCardModal } from '../hooks/useAdminCardModal';
 import { UserDetails } from '../components/UserDetails';
+import { useScanner } from '../hooks/useScanner';
+import { useUser } from '../hooks/useUser';
 interface IDashboard{
   users: Array<IUser>;
 }
 
 export default function Dashboard({ users }: IDashboard){
-  const { toggleScanner, isScannerOpen } = useDashboard();
-  const { isAdminCardModalOpen } = useAdminCardModal();
+  const { toggleScanner, isScannerOpen } = useScanner();
+  const { isUserDetailsOpen } = useUser();
 
   return (
     <>
@@ -83,7 +83,7 @@ export default function Dashboard({ users }: IDashboard){
       </Container>
       
       { isScannerOpen && <QRCodeScanner /> }
-      { isAdminCardModalOpen && <UserDetails /> }
+      { isUserDetailsOpen && <UserDetails /> }
     </>
   )
 }

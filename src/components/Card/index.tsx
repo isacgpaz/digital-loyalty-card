@@ -6,9 +6,7 @@ import { Badge, CheckedFlag, Container, Flag, Flags, Header } from "./styled";
 export function Card(){
   const { user } = useAuth();
 
-  const flags = user.flags.sort((a: any, b: any) => {
-    return a.index - b.index;
-  });
+  const flags = user.flags;
 
   const flagsChecked = flags.filter((flag: IFlag) => { return flag.isChecked });
 

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { IUser } from "../interfaces/IUser";
 import { api } from "../services/api";
 
@@ -9,19 +9,12 @@ interface DashboardProviderProps{
 interface DashboardContextData{
   users: Array<IUser>;
   getAllUsers: () => void;
-  toggleScanner: () => void;
-  isScannerOpen: boolean;
 }
 
 export const DashboardContext = createContext({} as DashboardContextData);
 
 export function DashboardProvider({ children }: DashboardProviderProps){
   const [users, setUsers] = useState<Array<IUser> | null>();
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
-
-  function toggleScanner(){
-    setIsScannerOpen(!isScannerOpen);
-  }
 
   async function getAllUsers(){
     try{
@@ -37,8 +30,6 @@ export function DashboardProvider({ children }: DashboardProviderProps){
     <DashboardContext.Provider value={{
       users,
       getAllUsers,
-      toggleScanner,
-      isScannerOpen
     }}>
       { children }
     </DashboardContext.Provider>

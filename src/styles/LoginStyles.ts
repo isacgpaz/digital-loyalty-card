@@ -5,6 +5,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 50vh;
+  margin-top: 2rem;
 `
 
 export const LoginBox = styled.div`

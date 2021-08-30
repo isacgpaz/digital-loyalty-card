@@ -1,5 +1,4 @@
 import { Layout } from '../components/Layout';
-import { AdminCardModalProvider } from '../contexts/AdminCardModalContext';
 import { AuthProvider } from '../contexts/AuthContext';
 import { DashboardProvider } from '../contexts/DashboardContext';
 import { QRCodeProvider } from '../contexts/QRCodeContext';
@@ -12,17 +11,15 @@ function MyApp({ Component, pageProps }) {
     <>
       <AuthProvider>
         <UserProvider>
-          <AdminCardModalProvider>
+          <ScannerProvider>
             <DashboardProvider>
               <QRCodeProvider>
-                <ScannerProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </ScannerProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
               </QRCodeProvider>
             </DashboardProvider>
-          </AdminCardModalProvider>
+          </ScannerProvider>
         </UserProvider>
       </AuthProvider>
       
