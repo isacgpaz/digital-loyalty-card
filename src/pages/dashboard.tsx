@@ -2,10 +2,6 @@ import Head from 'next/head';
 import * as BsIcons from 'react-icons/bs';
 import * as IoIcons from 'react-icons/io5';
 import { Container, Shortcuts, Button, Header, Table} from "../styles/DashboardStyles";
-import { api } from '../services/api';
-import { IUser } from '../interfaces/IUser';
-import { format, parseISO } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { QRCodeScanner } from '../components/QRCodeScanner';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
@@ -73,7 +69,7 @@ export default function Dashboard(){
                 )
               })
             ) : 
-              null
+              <p>Nenhum usuário cadastrado.</p>
             }
           </tbody>
         </Table>

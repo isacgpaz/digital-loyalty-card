@@ -18,6 +18,8 @@ interface UserContextData{
   addFlag: (user: IUser) => void;
   isUserDetailsOpen: boolean;
   toggleUserDetails: () => void;
+  isUpdateLimit: boolean;
+  isSucceded: boolean;
 }
 
 export const UserContext = createContext({} as UserContextData);
@@ -25,9 +27,11 @@ export const UserContext = createContext({} as UserContextData);
 export function UserProvider({ children }: UserProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [users, setUsers] = useState<Array<IUser> | null>();
-  const [flagsChecked, setIsFlagsCheched] = useState(0);
   const [googleId, setGoogleId] = useState('');
   const [isUserDetailsOpen, setIsUserDetailsOpen] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [isUpdateLimit, setIsUpdateLimit] = useState(false);
+  const [isSucceded, setIsSucceded] = useState(false);
 
   useEffect(() => {
     if(googleId){
@@ -40,6 +44,9 @@ export function UserProvider({ children }: UserProviderProps){
   }, [user?.flags, users]);
 
   function toggleUserDetails(){
+    setCounter(0);
+    setIsUpdateLimit(false);
+    setIsSucceded(false);
     setIsUserDetailsOpen(!isUserDetailsOpen);
   }
 
@@ -75,6 +82,18 @@ export function UserProvider({ children }: UserProviderProps){
   }
 
   async function addFlag(user: IUser){
+    if(counter == 1){
+      setIsUpdateLimit(true);
+
+      setTimeout(() => { 
+        setIsUpdateLimit(false);
+      }, 5750);
+      
+      return; 
+    }
+    
+    setCounter(counter + 1);    
+
     const flag = user.flags.find(flag => !flag.isChecked);
     
     if(flag){
@@ -105,6 +124,13 @@ export function UserProvider({ children }: UserProviderProps){
         }));
 
         setUser(data.user);
+        
+        setIsSucceded(true);
+
+        setTimeout(() => { 
+          setIsSucceded(false);
+        }, 5750);
+        
         getAllUsers();
       })
     }catch(error){
@@ -122,8 +148,10 @@ export function UserProvider({ children }: UserProviderProps){
       addFlag,
       isUserDetailsOpen,
       toggleUserDetails,
+      isUpdateLimit,
+      isSucceded
     }}>
       { children }
     </UserContext.Provider>
   )
-}//
+}

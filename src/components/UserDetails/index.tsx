@@ -11,7 +11,7 @@ import { IFlag } from '../../interfaces/IFlag';
 
 export function UserDetails(){
   const { scan } = useScanner();
-  const { setUserGoogleId, addFlag, user, toggleUserDetails } = useUser();
+  const { setUserGoogleId, addFlag, user, toggleUserDetails, isUpdateLimit, isSucceded } = useUser();
 
   setUserGoogleId(scan);
 
@@ -29,7 +29,10 @@ export function UserDetails(){
           <p>
             Confirme os dados do cliente para continuar.
           </p>
-        </Header>        
+        </Header>       
+
+        { isUpdateLimit && <Status background="red">Você só pode adicionar um carimbo por vez.</Status> }
+        { isSucceded && <Status background="green">Carimbo registrado com sucesso.</Status> }
 
         <Info>
           <Image 

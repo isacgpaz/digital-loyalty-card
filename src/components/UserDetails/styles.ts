@@ -62,12 +62,17 @@ const fade = keyframes`
   100% { opacity: 0; }
 `
 
-export const Status = styled.div`
+interface StatusProps{
+  background: string;
+}
+
+export const Status = styled.div<StatusProps>`
   display: flex;
   align-items: center;
   justify-items: center;
 
-  background: var(--green);
+  background: ${props => `var(--${props.background})`};
+  border-radius: 4px;
   color: var(--white);
 
   padding: .5rem 1rem;
