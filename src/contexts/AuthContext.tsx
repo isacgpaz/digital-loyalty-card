@@ -1,8 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { setCookie } from "nookies";
 import Router, { useRouter } from "next/router";
 import { IAdmin } from "../interfaces/IAdmin";
-import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
 import { SignInData } from "../interfaces/SIgnInData";
 import { api } from "../services/api";
@@ -37,6 +36,10 @@ export function AuthProvider({ children }: AuthProviderProps){
     if(router.pathname == '/'){
       const googleIdStorage = localStorage.getItem('user_id');
       verifyUser(googleIdStorage);
+
+      setInterval(() => {
+        verifyUser(user?.googleId);
+      }, 12000);
     }
   }, []);
 
@@ -70,7 +73,7 @@ export function AuthProvider({ children }: AuthProviderProps){
           data.user.flags = data.user.flags.sort(((a: any, b: any) => {
             return a.index - b.index;
           }));
-          
+
           localStorage.setItem('user_id', data.user.googleId);
 
           setUser(data.user); 

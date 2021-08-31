@@ -1,3 +1,5 @@
+import { format, parseISO } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useAuth } from "../../hooks/useAuth";
 import { useQRCode } from "../../hooks/useQRCode";
 import { IFlag } from "../../interfaces/IFlag";
@@ -32,7 +34,7 @@ export function MainContainer({ children }){
       { user && 
         <UpdatedAt>
           <span>Última Atualização:</span>
-          Segunda-feira, 24/08/2021 às 21:16:13
+          {format(parseISO(user.updatedAt), "EEEE',' dd 'de' MMMM 'de' yyyy 'às' H'h'm", { locale: ptBR }) }
         </UpdatedAt>
       }
     </Container>

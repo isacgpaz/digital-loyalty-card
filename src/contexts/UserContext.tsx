@@ -2,7 +2,6 @@ import { parseISO, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
 import { api } from "../services/api";
 
