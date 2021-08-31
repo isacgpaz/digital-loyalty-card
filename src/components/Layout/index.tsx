@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import { Container, Logo, Social } from "./styles";
+import { Container, Hero, Logo, Social } from "./styles";
 import { Header } from "../Header";
 import { Profile } from "../Profile";
 import { useAuth } from '../../hooks/useAuth';
@@ -15,6 +15,15 @@ export function Layout({ children }){
       <div>
         <Header />
             
+        <Hero>
+          <Image 
+            src="/caktus.jpg" 
+            alt="Caktus"
+            width={192}
+            height={192} 
+          />
+        </Hero>
+
         { user ? <Profile user={user} /> : (
           <Logo>
               <Image

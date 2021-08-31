@@ -10,6 +10,25 @@ export const Container = styled.div`
   padding: 0 1.25rem;
 `
 
+export const Hero = styled.div`
+  width: 100%;
+  height: 30vh;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+
+  img{
+    width: 100vw;
+    filter: brightness(40%) opacity(90%);
+    mask-image: linear-gradient(to top, transparent 15%, var(--black) 100%);
+  }
+`
+
 export const Logo = styled.div`
   display: flex;
   align-items: center;
