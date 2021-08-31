@@ -48,7 +48,7 @@ export function UserProvider({ children }: UserProviderProps){
     if(router.pathname == '/dashboard'){
       getAllUsers();
     }
-  }, [user]);
+  }, [user, router]);
 
   function toggleUserDetails(){
     setCounter(0);

@@ -69,6 +69,7 @@ export function QRCodeScanner(){
                   getManualStamp(event.target.value);
                   setUserGoogleId(event.target.value);
                  }}
+                autoFocus
               />
 
               { (user && scan.length == 21) && 
