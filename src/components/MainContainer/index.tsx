@@ -34,7 +34,7 @@ export function MainContainer({ children }){
       { user && 
         <UpdatedAt>
           <span>Última Atualização:</span>
-          {format(parseISO(user.updatedAt), "EEEE',' dd 'de' MMMM 'de' yyyy 'às' H'h'm", { locale: ptBR }) }
+          {format(parseISO(user.updatedAt), "EEEE',' dd 'de' MMMM 'de' yyyy 'às' HH'h'm", { locale: ptBR }) }
         </UpdatedAt>
       }
     </Container>

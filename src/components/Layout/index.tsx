@@ -42,21 +42,22 @@ export function Layout({ children }){
         Desenvolvido por Isac Paz
 
         <div>
-          <Link href="/">
-            <a>
+
+          <Link href="https://api.whatsapp.com/send?phone=5588981297428">
+            <a target="_blank">
+              <FaIcons.FaWhatsapp />
+            </a>
+          </Link>
+          
+          <Link href="mailto:isacgomesp@gmail.com">
+            <a target="_blank">
               <MdIcons.MdEmail />
             </a>
           </Link>
 
-          <Link href="/">
-            <a>
+          <Link href="https://www.linkedin.com/in/isacgpaz">
+            <a target="_blank">
               <FaIcons.FaLinkedin />
-            </a>
-          </Link>
-
-          <Link href="/">
-            <a>
-              <FaIcons.FaGithub />
             </a>
           </Link>
         </div>
