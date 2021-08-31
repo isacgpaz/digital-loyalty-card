@@ -40,7 +40,7 @@ export function Sidebar(){
         </li>
 
         <li>
-          <Link href="https://api.whatsapp.com/send?phone=8821569577">
+          <Link href="https://api.whatsapp.com/send?phone=558821569577">
             <a target="_blank">
               <FaIcons.FaWhatsapp />
               Whatsapp
