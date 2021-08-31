@@ -35,10 +35,11 @@ export function AuthProvider({ children }: AuthProviderProps){
     //auto client login redirect
     if(router.pathname == '/'){
       const googleIdStorage = localStorage.getItem('user_id');
+      console.log('storage', googleIdStorage)
       verifyUser(googleIdStorage);
 
       setInterval(() => {
-        verifyUser(user?.googleId);
+        verifyUser(googleIdStorage);
       }, 12000);
     }
   }, []);
@@ -59,6 +60,7 @@ export function AuthProvider({ children }: AuthProviderProps){
         googleId: profileObj.googleId,
         imageUrl: profileObj.imageUrl
       }).then(({data}) => {
+        localStorage.setItem('user_id', data.user.googleId);
         setUser(data.user);
       })
     }catch(error){
