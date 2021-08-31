@@ -1,19 +1,20 @@
 import Head from 'next/head';
 import * as BsIcons from 'react-icons/bs';
 import * as IoIcons from 'react-icons/io5';
-import { Container, Shortcuts, Button, Header, Table} from "../styles/DashboardStyles";
+import * as FaIcons from 'react-icons/fa';
+import { Container, Shortcuts, Button, Header, Search} from "../styles/DashboardStyles";
 import { QRCodeScanner } from '../components/QRCodeValidator';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
-import { IFlag } from '../interfaces/IFlag';
 import { UserDetails } from '../components/UserDetails';
 import { useUser } from '../hooks/useUser';
 import { useQRCode } from '../hooks/useQRCode';
 import { Loading } from '../components/Loading';
+import { Table } from '../components/Table';
 
 export default function Dashboard(){
   const { toggleScanner, toggleHandStamp, isStampOpen } = useQRCode();
-  const { isUserDetailsOpen, users } = useUser();
+  const { isUserDetailsOpen, users, getUsersByName, resultSearch } = useUser();
   
   return (
     <>
@@ -45,34 +46,25 @@ export default function Dashboard(){
           </div>
         </Shortcuts>
 
-        <Table>
-          <thead>
-            <tr>
-              <th>Cliente</th>
-              <th>Carimbos</th>
-            </tr>
-          </thead>
-          <tbody>
-          {users &&
-            users?.length != 0 && 
-              users?.map(user => {
-                return (
-                  <tr key={user._id}>
-                    <td>
-                      <p>{user.name}</p>  
-                      <span>ID {user.googleId}</span>
-                      <small>
-                        <BsIcons.BsCalendar />
-                        {user.updatedAt}
-                      </small>
-                    </td>    
-                    <td>{(user?.flags.filter((flag: IFlag) => { return flag.isChecked })).length}</td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </Table>
+        <Search>
+          <input 
+            type="text" 
+            placeholder="Pesquisar por Cliente"
+            onChange={(event) => {
+              getUsersByName(event.target.value);
+            }}
+          />
+
+          <span>
+            <FaIcons.FaSearch />
+          </span>
+        </Search>
+        
+        <Table users={
+          resultSearch ? (
+            resultSearch?.length == 0 ? users : resultSearch 
+          ) : users
+        } />
 
         {!users && <Loading width={35} height={35} stroke={6} />}
       </Container>

@@ -60,70 +60,48 @@ export const Button = styled.button<ButtonProps>`
   font-size: 1.65rem;
 `
 
-export const Table = styled.table`
+export const Search = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
   width: 100%;
-  
-  background: var(--gray);
-  border: 1px solid var(--gray-light);
-  border-spacing: 0;
+  border: 3px solid var(--gray-dark);
   border-radius: 4px;
-  color: var(--black);
-
-  font-size: 1.1rem;
-
-  td, tr, th{
-    border: 1px solid var(--gray-light);
-    border-top: none;
-    padding: .75rem;
-    width: 100%;
-  }
-
-  th{
-    text-transform: uppercase;
-    color: var(--gray-dark);
-    font-size: .875rem;
-
-    &:first-child{
-      text-align: left;
-    }
-  }
-
-  td, th{
-    &:first-child{
-      border-left: none;
-    }
-
-    &:last-child{
-      border-right: none;
-    }
-  }
-
-  td{
-    &:first-child{
-      display: flex;
-      flex-direction: column;
-      gap: .12rem;
-      
-      p{
-        font-weight: 500;
-      }
   
-      span{
-        font-size: 1rem;
-      }
+  background: var(--white);
+  color: var(--gray-dark);
+  transition: all .3s ease;
 
-      small{
-        display: flex;
-        align-items: center;
-        gap: .25rem;
+  &:focus-within{
+    border: 3px solid var(--green);
+    
+    span{
+      font-size: 1.35rem;
+    }
+  }
 
-        color: var(--gray-dark);
+  input{
+    border: none;
+    border-radius: 4px;
+    flex: 1;
+    padding: .5rem;
+    transition: all 0.2s ease;
+    
+    &:focus{
+      outline: none;
+    
+      &~span{
+        color: var(--green);
       }
     }
-
-    &:last-child {
-      text-align: center;
-      font-size: 1.25rem;
-    }
+  }
+  
+  span{
+    display: flex;
+    align-items: center;
+    padding: .25rem .65rem;
+    font-size: 1.15rem;
+    transition: all .2s ease;
   }
 `

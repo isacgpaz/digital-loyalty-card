@@ -18,8 +18,10 @@ interface UserContextData{
   addFlag: (user: IUser) => void;
   isUserDetailsOpen: boolean;
   toggleUserDetails: () => void;
+  getUsersByName: (query: string) => void;
   isUpdateLimit: boolean;
   isSucceded: boolean;
+  resultSearch: Array<IUser>;
 }
 
 export const UserContext = createContext({} as UserContextData);
@@ -32,6 +34,7 @@ export function UserProvider({ children }: UserProviderProps){
   const [counter, setCounter] = useState(0);
   const [isUpdateLimit, setIsUpdateLimit] = useState(false);
   const [isSucceded, setIsSucceded] = useState(false);
+  const [resultSearch, setResultSearch] = useState<Array<IUser> | null>();
 
   const router = useRouter();
   
@@ -82,6 +85,15 @@ export function UserProvider({ children }: UserProviderProps){
       });
     }catch(error){
       return error.message;
+    }
+  }
+
+  function getUsersByName(query: string){
+    const result = users.filter((user: IUser) => { return user.name.toLowerCase().includes(query.toLowerCase()) });
+    setResultSearch(result);
+
+    if(query == ''){
+      setResultSearch([]);
     }
   }
 
@@ -152,8 +164,10 @@ export function UserProvider({ children }: UserProviderProps){
       addFlag,
       isUserDetailsOpen,
       toggleUserDetails,
+      getUsersByName,
       isUpdateLimit,
-      isSucceded
+      isSucceded,
+      resultSearch
     }}>
       { children }
     </UserContext.Provider>
