@@ -1,5 +1,6 @@
 import { parseISO, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
@@ -33,6 +34,8 @@ export function UserProvider({ children }: UserProviderProps){
   const [isUpdateLimit, setIsUpdateLimit] = useState(false);
   const [isSucceded, setIsSucceded] = useState(false);
 
+  const router = useRouter();
+  
   useEffect(() => {
     if(googleId){
       getUser(googleId);
@@ -40,8 +43,10 @@ export function UserProvider({ children }: UserProviderProps){
   }, [googleId]);
   
   useEffect(() => {
-    getAllUsers();
-  }, [user?.flags, users]);
+    if(router.pathname == '/dashboard'){
+      getAllUsers();
+    }
+  }, [user]);
 
   function toggleUserDetails(){
     setCounter(0);

@@ -1,11 +1,14 @@
-import { Container } from "../AdminModal/styles"
 import { Loader } from "./styles"
 
-export function Loading(){
+interface LoadingProps{
+  width: number;
+  height: number;
+  stroke?: number
+}
+
+export function Loading({width, height, stroke}: LoadingProps){
   return (
-    <Container>
-      <Loader />
-    </Container>
+    <Loader width={width} height={height} stroke={stroke} />
   )
 }
 

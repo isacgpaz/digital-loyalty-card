@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Form } from '../../styles/LoginStyles';
 
 export const ScannerModal = styled.div`
   display: flex;
@@ -62,5 +63,31 @@ export const Scanner = styled.div`
   h2{
     text-align: center;
     word-break: break-word;
+  }
+`
+
+export const ManualStamp = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+`
+
+export const FormStamp = styled(Form)`
+  input{
+    &:focus{
+      outline: 0;
+      border: 2px solid var(--green);  
+       
+      padding: 1rem 1.5rem;
+ 
+      &::placeholder{  
+        color: var(--green); 
+      }
+ 
+      color: var(--green);
+    }
   }
 `

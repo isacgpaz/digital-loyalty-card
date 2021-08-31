@@ -1,24 +1,28 @@
 import Image from 'next/image';
 import * as IoIcons from 'react-icons/io';
-import { useScanner } from '../../hooks/useScanner';
 import { useUser } from '../../hooks/useUser';
-import { Container } from '../AdminModal/styles';
-import { Header } from '../QRCodeScanner/styles';
+import { Overflow } from '../AdminModal/styles';
+import { Header } from '../QRCodeValidator/styles';
 import { Info, Status, UserModal } from './styles';
 import { Button } from '../../styles/DashboardStyles';
 import { Loading } from '../Loading';
 import { IFlag } from '../../interfaces/IFlag';
+import { useQRCode } from '../../hooks/useQRCode';
 
 export function UserDetails(){
-  const { scan } = useScanner();
+  const { scan } = useQRCode();
   const { setUserGoogleId, addFlag, user, toggleUserDetails, isUpdateLimit, isSucceded } = useUser();
 
   setUserGoogleId(scan);
 
-  if (!user) return <Loading />
+  if (!user) return (
+    <Overflow>
+      <Loading width={80} height={80} stroke={10}/>
+    </Overflow>  
+  )
 
   return (
-    <Container>
+    <Overflow>
       <UserModal>
         <button type="button" onClick={ toggleUserDetails } style={{fontSize: '1.5rem'}}>
           <IoIcons.IoIosArrowBack /> 
@@ -61,6 +65,6 @@ export function UserDetails(){
           Confirmar Carimbo
         </Button>
       </UserModal>
-    </Container>
+    </Overflow>
   )
 }

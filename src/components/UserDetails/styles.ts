@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { ScannerModal } from '../QRCodeScanner/styles';
+import { ScannerModal } from '../QRCodeValidator/styles';
 
 export const UserModal = styled(ScannerModal)`
   button{

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies, setCookie } from "nookies";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { IAdmin } from "../interfaces/IAdmin";
 import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
@@ -30,11 +30,15 @@ export const AuthContext = createContext({} as AuthContextData);
 export function AuthProvider({ children }: AuthProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [admin, setAdmin] = useState<IAdmin | null>();
-  
+  const router = useRouter();
+
   useEffect(() => {
-    const googleIdStorage = localStorage.getItem('user_id');
-    verifyUser(googleIdStorage);
-  }, [user])
+    //auto client login redirect
+    if(router.pathname == '/'){
+      const googleIdStorage = localStorage.getItem('user_id');
+      verifyUser(googleIdStorage);
+    }
+  }, []);
 
   async function responseGoogle({ profileObj }: ResponseData){
     await verifyUser(profileObj.googleId).then(() => {
@@ -89,7 +93,6 @@ export function AuthProvider({ children }: AuthProviderProps){
         setAdmin(data.admin);
 
         api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
-        console.log(api.defaults.headers['Authorization'])
 
         Router.push('/dashboard');
       })

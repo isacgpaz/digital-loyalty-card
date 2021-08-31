@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Overflow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;

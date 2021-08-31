@@ -1,9 +1,9 @@
-import { Container } from "./styles";
+import { Overflow } from "./styles";
 
 export function AdminModal({ children }){
   return (
-    <Container>
+    <Overflow>
       { children }
-    </Container>
+    </Overflow>
   )
 }
