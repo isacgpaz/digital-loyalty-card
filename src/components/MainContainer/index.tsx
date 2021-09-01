@@ -19,7 +19,7 @@ export function MainContainer({ children }){
         ) : (
           flagsChecked?.length == 12 ? (<>
               <h2>Parabéns</h2>
-              <p>Você conseguiu!</p>
+              <p>Você ganhou 1 rodízio!</p>
             </>
           ) : ( <>
               <h2>Cartão <br /> Fidelidade</h2>
@@ -34,7 +34,7 @@ export function MainContainer({ children }){
       { user && 
         <UpdatedAt>
           <span>Última Atualização:</span>
-          {format(parseISO(user.updatedAt), "EEEE',' dd 'de' MMMM 'de' yyyy 'às' HH'h'm", { locale: ptBR }) }
+          {format(parseISO(user.updatedAt), "EEEE',' dd 'de' MMMM 'de' yyyy 'às' HH'h'mm", { locale: ptBR }) }
         </UpdatedAt>
       }
     </Container>

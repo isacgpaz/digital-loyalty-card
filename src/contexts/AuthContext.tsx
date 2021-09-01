@@ -5,6 +5,7 @@ import { IAdmin } from "../interfaces/IAdmin";
 import { IUser } from "../interfaces/IUser";
 import { SignInData } from "../interfaces/SIgnInData";
 import { api } from "../services/api";
+import { IFlag } from "../interfaces/IFlag";
 
 interface AuthProviderProps{
   children: ReactNode
@@ -18,6 +19,7 @@ interface AuthContextData{
   user: IUser;
   responseGoogle: (response: object) => void;
   verifyUser: (googleId: string) => void;
+  flagsChecked: number;
 
   admin: IAdmin;
   authAdmin: ({email, password}: SignInData) => Promise<void>;
@@ -29,6 +31,7 @@ export const AuthContext = createContext({} as AuthContextData);
 export function AuthProvider({ children }: AuthProviderProps){
   const [user, setUser] = useState<IUser | null>();
   const [admin, setAdmin] = useState<IAdmin | null>();
+  const [flagsChecked, setFlagsChecked] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -43,6 +46,11 @@ export function AuthProvider({ children }: AuthProviderProps){
       }, 12000);
     }
   }, []);
+
+  
+  useEffect(() => {
+    setFlagsChecked(user?.flags.filter((flag: IFlag) => { return flag.isChecked }).length);
+  }, [user])
 
   async function responseGoogle({ profileObj }: ResponseData){
     await verifyUser(profileObj.googleId).then(() => {
@@ -111,6 +119,7 @@ export function AuthProvider({ children }: AuthProviderProps){
       user,
       responseGoogle,
       verifyUser,
+      flagsChecked,
       admin,
       authAdmin
     }}>

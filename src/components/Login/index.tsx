@@ -10,7 +10,7 @@ export function Login(){
   return (
     <Container>
       <h2>
-        A cada 12 almoços, <br />
+        A cada 12 rodízios, <br />
         o 13º é por nossa conta.
       </h2>
 

@@ -26,7 +26,7 @@ export function Card(){
         </Badge>
 
         <p>
-          A cada 12 almoços o 13º é por nossa conta. Visite o 
+          A cada 12 rodízios o 13º é por nossa conta. Visite o 
           Caktus Restaurante para liberar mais carimbos.
         </p>
       </Header>

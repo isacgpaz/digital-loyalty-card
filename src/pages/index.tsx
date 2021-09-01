@@ -10,9 +10,7 @@ import { IFlag } from "../interfaces/IFlag";
 
 export default function Home() {
   const { isQRCodeOpen } = useQRCode();
-  const { user } = useAuth();
-
-  const flagsChecked = user?.flags.filter((flag: IFlag) => { return flag.isChecked });
+  const { user, flagsChecked } = useAuth();
 
   return (
     <>
@@ -22,7 +20,7 @@ export default function Home() {
 
       <MainContainer>
         { user ? (isQRCodeOpen ? 
-          <QRCodeGenerate /> : flagsChecked.length == 12 ? <Success /> : <Card />
+          <QRCodeGenerate /> : flagsChecked == 12 ? <Success /> : <Card />
         ) : (
           <Login />
         )}
