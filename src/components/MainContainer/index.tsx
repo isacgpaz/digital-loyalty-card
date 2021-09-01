@@ -17,7 +17,7 @@ export function MainContainer({ children }){
         { isQRCodeOpen ? (
           <h2>Registrar <br /> Carimbo</h2>
         ) : (
-          flagsChecked?.length == 13 ? (<>
+          flagsChecked?.length == 12 ? (<>
               <h2>Parabéns</h2>
               <p>Você conseguiu!</p>
             </>

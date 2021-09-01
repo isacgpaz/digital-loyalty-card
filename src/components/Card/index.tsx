@@ -17,8 +17,8 @@ export function Card(){
           (flagsChecked.length >= 0 && flagsChecked.length < 4) ? "gray-dark"
           : (flagsChecked.length >= 4 && flagsChecked.length < 8) ? "orange"
           : (flagsChecked.length >= 8 && flagsChecked.length < 12) ? "yellow"
-          : flagsChecked.length == 12 ? "green"
-          : flagsChecked.length == 13 ? "green-light"
+          : flagsChecked.length == 10 ? "green"
+          : flagsChecked.length == 12 ? "green-light"
           : "none"
         } 
         >

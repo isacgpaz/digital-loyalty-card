@@ -50,6 +50,14 @@ export function UserProvider({ children }: UserProviderProps){
     }
   }, [user, router]);
 
+  useEffect(() => {
+    if(router.pathname == '/dashboard'){
+      setInterval(() => {
+        getAllUsers();
+      }, 12000);
+    }
+  }, []);
+
   function toggleUserDetails(){
     setCounter(0);
     setIsUpdateLimit(false);

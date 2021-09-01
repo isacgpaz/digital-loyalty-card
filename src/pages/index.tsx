@@ -22,7 +22,7 @@ export default function Home() {
 
       <MainContainer>
         { user ? (isQRCodeOpen ? 
-          <QRCodeGenerate /> : flagsChecked.length == 13 ? <Success /> : <Card />
+          <QRCodeGenerate /> : flagsChecked.length == 12 ? <Success /> : <Card />
         ) : (
           <Login />
         )}

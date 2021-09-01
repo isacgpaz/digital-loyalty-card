@@ -6,7 +6,7 @@ export function Success(){
   return (
     <Container>
       <Badge background="green-light">
-          13 Caktus
+          12 Caktus
         </Badge>
 
       <div>
