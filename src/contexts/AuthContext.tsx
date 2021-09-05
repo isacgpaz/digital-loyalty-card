@@ -38,7 +38,6 @@ export function AuthProvider({ children }: AuthProviderProps){
     //auto client login redirect
     if(router.pathname == '/'){
       const googleIdStorage = localStorage.getItem('user_id');
-      console.log('storage', googleIdStorage)
       verifyUser(googleIdStorage);
 
       setInterval(() => {
