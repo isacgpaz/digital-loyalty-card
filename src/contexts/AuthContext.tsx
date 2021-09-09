@@ -42,7 +42,7 @@ export function AuthProvider({ children }: AuthProviderProps){
 
       setInterval(() => {
         verifyUser(googleIdStorage);
-      }, 12000);
+      }, 6000);
     }
   }, []);
 

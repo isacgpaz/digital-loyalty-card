@@ -2,6 +2,7 @@ import { parseISO, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useRouter } from "next/router";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { IFlag } from "../interfaces/IFlag";
 import { IUser } from "../interfaces/IUser";
 import { api } from "../services/api";
 
@@ -31,7 +32,6 @@ export function UserProvider({ children }: UserProviderProps){
   const [users, setUsers] = useState<Array<IUser> | null>();
   const [googleId, setGoogleId] = useState('');
   const [isUserDetailsOpen, setIsUserDetailsOpen] = useState(false);
-  const [counter, setCounter] = useState(0);
   const [isUpdateLimit, setIsUpdateLimit] = useState(false);
   const [isSucceded, setIsSucceded] = useState(false);
   const [resultSearch, setResultSearch] = useState<Array<IUser> | null>();
@@ -54,12 +54,11 @@ export function UserProvider({ children }: UserProviderProps){
     if(router.pathname == '/dashboard'){
       setInterval(() => {
         getAllUsers();
-      }, 12000);
+      }, 6000);
     }
   }, []);
 
   function toggleUserDetails(){
-    setCounter(0);
     setIsUpdateLimit(false);
     setIsSucceded(false);
     setIsUserDetailsOpen(!isUserDetailsOpen);
@@ -73,7 +72,7 @@ export function UserProvider({ children }: UserProviderProps){
     try{
       await api.get(`users/${googleId}`)
         .then(({ data })  => { 
-          data.user.flags = data.user.flags.sort(((a: any, b: any) => {
+          data.user.flags.sort(((a: any, b: any) => {
             return a.index - b.index;
           }));
           setUser(data.user); 
@@ -86,9 +85,14 @@ export function UserProvider({ children }: UserProviderProps){
   async function getAllUsers(){
     try{
       await api.get(`users`).then(({ data }) => {
-        data.users.map(user => { 
+        data.users.sort((a: any, b: any) => {
+          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+        });
+        
+        data.users.map((user: IUser) => { 
           user.updatedAt = format(parseISO(user.updatedAt), "dd 'de' MMMM 'de' yyyy 'às' H'h'm", { locale: ptBR });
-        })
+        });
+
         setUsers(data.users);
       });
     }catch(error){
@@ -106,17 +110,13 @@ export function UserProvider({ children }: UserProviderProps){
   }
 
   async function addFlag(user: IUser){
-    if(counter == 1){
-      setIsUpdateLimit(true);
-
-      setTimeout(() => { 
-        setIsUpdateLimit(false);
-      }, 5750);
-      
-      return; 
-    }
+    const updatedAt = format(parseISO(user.updatedAt), "HHmmddMMyy", { locale: ptBR });
+    const createdAt = format(parseISO(user.createdAt), "HHmmddMMyy", { locale: ptBR });
+    const dateNow = format(new Date(), "HHmmddMMyy", { locale: ptBR });
     
-    setCounter(counter + 1);    
+    console.log(updatedAt);
+    console.log(createdAt);
+    console.log(dateNow);
 
     const flag = user.flags.find(flag => !flag.isChecked);
     
@@ -143,19 +143,21 @@ export function UserProvider({ children }: UserProviderProps){
         imageUrl: user.imageUrl,
         googleId: user.googleId,
       }).then(({ data })  => { 
-        data.user.flags = data.user.flags.sort(((a: any, b: any) => {
+        data.user.flags = data.user.flags.sort(((a: IFlag, b: IFlag) => {
           return a.index - b.index;
         }));
 
-        setUser(data.user);
+        getAllUsers();
+        
+        setUser(null);
         
         setIsSucceded(true);
 
         setTimeout(() => { 
           setIsSucceded(false);
-        }, 5750);
+        }, 3000);
         
-        getAllUsers();
+        setIsUserDetailsOpen(false);
       })
     }catch(error){
       return error.message;

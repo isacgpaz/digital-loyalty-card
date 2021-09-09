@@ -12,7 +12,7 @@ export function Table({ users }: TableProps) {
     <TableUsers>
       <thead>
         <tr>
-          <th>Cliente</th>
+          <th>Clientes({users?.length})</th>
           <th>Carimbos</th>
         </tr>
       </thead>

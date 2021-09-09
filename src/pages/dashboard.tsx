@@ -2,7 +2,7 @@ import Head from 'next/head';
 import * as BsIcons from 'react-icons/bs';
 import * as IoIcons from 'react-icons/io5';
 import * as FaIcons from 'react-icons/fa';
-import { Container, Shortcuts, Button, Header, Search} from "../styles/DashboardStyles";
+import { Container, Shortcuts, Button, Header, Search, Status} from "../styles/DashboardStyles";
 import { QRCodeScanner } from '../components/QRCodeValidator';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
@@ -14,7 +14,7 @@ import { Table } from '../components/Table';
 
 export default function Dashboard(){
   const { toggleScanner, toggleHandStamp, isStampOpen } = useQRCode();
-  const { isUserDetailsOpen, users, getUsersByName, resultSearch } = useUser();
+  const { isUserDetailsOpen, users, getUsersByName, resultSearch, isUpdateLimit, isSucceded } = useUser();
   
   return (
     <>
@@ -41,8 +41,6 @@ export default function Dashboard(){
               <BsIcons.BsPersonLinesFill />
               Digitar Client ID
             </Button>
-              
-            <small>Também disponível para Delivery.</small>
           </div>
         </Shortcuts>
 
@@ -60,6 +58,9 @@ export default function Dashboard(){
           </span>
         </Search>
         
+        { isUpdateLimit && <Status background="red">Você só pode adicionar um carimbo por vez.</Status> }
+        { isSucceded && <Status background="green">Carimbo registrado com sucesso.</Status> }
+
         <Table users={
           resultSearch ? (
             resultSearch?.length == 0 ? users : resultSearch 

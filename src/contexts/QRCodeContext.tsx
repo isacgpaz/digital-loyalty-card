@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 
 interface QRCodeProviderProps{
@@ -28,6 +28,14 @@ export function QRCodeProvider({ children }: QRCodeProviderProps){
   const [isStampOpen, setIsStampOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [isHandStampOpen, setIsHandStampOpen] = useState(false);
+
+  const { isSucceded, isUpdateLimit } = useUser();
+
+  useEffect(() => {
+    if(isStampOpen && (isSucceded || isUpdateLimit)) {
+      toggleStamp();
+    }
+  }, [isSucceded, isUpdateLimit, isStampOpen]);
 
   function toggleQRCode(){
     setIsQRCodeOpen(!isQRCodeOpen);

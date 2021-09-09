@@ -8,4 +8,5 @@ export interface IUser{
   googleId: string;
   flags: Array<IFlag>;
   updatedAt?: string;
+  createdAt?: string;
 }

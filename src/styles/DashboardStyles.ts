@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 interface ButtonProps{
   background: string;
@@ -104,4 +104,33 @@ export const Search = styled.div`
     font-size: 1.15rem;
     transition: all .2s ease;
   }
+`
+
+const fade = keyframes`
+  0% { opacity: 0; height: 0; }
+  10% { opacity: 1; height: 2.875rem; }
+  90% { opacity: 1; height: 2.875rem; }
+  100% { opacity: 0; height: 0; }
+`
+
+interface StatusProps{
+  background: string;
+}
+
+export const Status = styled.div<StatusProps>`
+  display: flex;
+  align-items: center;
+  justify-items: center;
+
+  background: ${props => `var(--${props.background})`};
+  border-radius: 4px;
+  color: var(--white);
+
+  padding: .5rem 1rem;
+
+  width: 100%;
+  height: 2.875rem;
+  opacity: 0;
+  animation: ${fade} 3s cubic-bezier(0, 0.04, 0.9, 0.6);
+  transition: all 5s ease;
 `

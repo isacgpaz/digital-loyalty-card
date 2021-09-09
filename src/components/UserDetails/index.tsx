@@ -3,7 +3,7 @@ import * as IoIcons from 'react-icons/io';
 import { useUser } from '../../hooks/useUser';
 import { Overflow } from '../AdminModal/styles';
 import { Header } from '../QRCodeValidator/styles';
-import { Info, Status, UserModal } from './styles';
+import { Info, UserModal } from './styles';
 import { Button } from '../../styles/DashboardStyles';
 import { Loading } from '../Loading';
 import { IFlag } from '../../interfaces/IFlag';
@@ -11,7 +11,7 @@ import { useQRCode } from '../../hooks/useQRCode';
 
 export function UserDetails(){
   const { scan } = useQRCode();
-  const { setUserGoogleId, addFlag, user, toggleUserDetails, isUpdateLimit, isSucceded } = useUser();
+  const { setUserGoogleId, addFlag, user, toggleUserDetails } = useUser();
 
   setUserGoogleId(scan);
 
@@ -34,9 +34,6 @@ export function UserDetails(){
             Confirme os dados do cliente para continuar.
           </p>
         </Header>       
-
-        { isUpdateLimit && <Status background="red">Você só pode adicionar um carimbo por vez.</Status> }
-        { isSucceded && <Status background="green">Carimbo registrado com sucesso.</Status> }
 
         <Info>
           <Image 
